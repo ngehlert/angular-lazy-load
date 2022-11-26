@@ -7,6 +7,17 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitOverride": true,
+    "paths": {
+      "bad-lib": [
+        "dist/bad-lib"
+      ],
+      "good-lib/*": [
+        "dist/good-lib/*"
+      ],
+      "good-lib": [
+        "dist/good-lib"
+      ],
+    },
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,

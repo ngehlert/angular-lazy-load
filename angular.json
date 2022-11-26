@@ -3,36 +3,102 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-lazy-load": {
+    "good-lib": {
+      "projectType": "library",
+      "root": "projects/good-lib",
+      "sourceRoot": "projects/good-lib/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/good-lib/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/good-lib/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/good-lib/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/good-lib/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
+    },
+    "bad-lib": {
+      "projectType": "library",
+      "root": "projects/bad-lib",
+      "sourceRoot": "projects/bad-lib/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/bad-lib/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/bad-lib/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/bad-lib/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/bad-lib/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
+    },
+    "app": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
         }
       },
-      "root": "",
-      "sourceRoot": "src",
+      "root": "projects/app",
+      "sourceRoot": "projects/app/src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/angular-lazy-load",
-            "index": "src/index.html",
-            "main": "src/main.ts",
+            "outputPath": "dist/app",
+            "index": "projects/app/src/index.html",
+            "main": "projects/app/src/main.ts",
             "polyfills": [
               "zone.js"
             ],
-            "tsConfig": "tsconfig.app.json",
+            "tsConfig": "projects/app/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "projects/app/src/favicon.ico",
+              "projects/app/src/assets"
             ],
             "styles": [
-              "src/styles.scss",
-              "@ag-grid-community/styles/ag-grid.css",
-              "@ag-grid-community/styles/ag-theme-alpine.css"
+              "projects/app/src/styles.scss",
+              "node_modules/@ag-grid-community/styles/ag-grid.css",
+              "node_modules/@ag-grid-community/styles/ag-theme-alpine.css"
             ],
             "scripts": []
           },
@@ -41,8 +107,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "1mb",
+                  "maximumError": "2mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -67,10 +133,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "angular-lazy-load:build:production"
+              "browserTarget": "app:build:production"
             },
             "development": {
-              "browserTarget": "angular-lazy-load:build:development"
+              "browserTarget": "app:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -78,7 +144,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-lazy-load:build"
+            "browserTarget": "app:build"
           }
         },
         "test": {
@@ -88,14 +154,14 @@
               "zone.js",
               "zone.js/testing"
             ],
-            "tsConfig": "tsconfig.spec.json",
+            "tsConfig": "projects/app/tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "projects/app/src/favicon.ico",
+              "projects/app/src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "projects/app/src/styles.scss"
             ],
             "scripts": []
           }
