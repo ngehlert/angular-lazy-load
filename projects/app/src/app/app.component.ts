@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {RandomService} from 'good-lib';
+import {RandomService} from 'bad-lib';
 
 @Component({
   selector: 'app-root',
